@@ -33,7 +33,9 @@ To deploy using the Jaeger Production template, do the following
 + oc create --filename cassandra.yml
 + Wait a few minutes until cassandra finishes deploying.  You can watch this in the OpenShift console if desired
 + curl https://raw.githubusercontent.com/jaegertracing/jaeger-openshift/master/production/jaeger-production-template.yml --output jaeger-production-template.yml
-+ oc process -f jaeger-production-template.yml  | oc create -n jaeger-infra -f -
++ oc process -f jaeger-production-template.yml  | oc create -n your-project-name -f -
+
+NOTE: substitute your real project name for "your-project-name" in the command above
 
 ### Deploying the Example to OpenShift
 + mvn -Dtest.service.name=your-service-name -Popenshift clean install fabric8:deploy
