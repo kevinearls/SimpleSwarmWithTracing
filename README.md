@@ -11,12 +11,12 @@ See `http://jaeger.readthedocs.io/en/latest/getting_started/` for instructions o
 `
 ### Run the example using Maven and the wildfly-swarm plugin
 Clone this repository, and cd into the top level directory.  Then: 
-+ export TEST_SERVICE_NAME=<YOUR_SERVICE_NAME
++ export TEST_SERVICE_NAME=your-service-name
 + `mvn clean install wildfly-swarm:run`
 ### Run the example using the fat jar
 Clone this repository, and cd into the top level directory.  Then do:
 + mvn clean install
-+ export TEST_SERVICE_NAME=<whatever-you-want>
++ export TEST_SERVICE_NAME=your-service-name
 + java -jar target/demo-swarm.jar
 
 ### To create spans
@@ -36,7 +36,7 @@ To deploy using the Jaeger Production template, do the following
 + oc process -f jaeger-production-template.yml  | oc create -n jaeger-infra -f -
 
 ### Deploying the Example to OpenShift
-+ mvn -Dtest.service.name=YOUR_SERVICE_NAME -Popenshift clean install fabric8:deploy
++ mvn -Dtest.service.name=your-service-name -Popenshift clean install fabric8:deploy
 
 NOTE: The fabric8 maven plugin can sometimes be very slow the first time you run it, so expect to wait a few minutes for this to work.
 
