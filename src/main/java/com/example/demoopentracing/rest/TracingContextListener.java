@@ -12,13 +12,15 @@ import com.uber.jaeger.senders.UdpSender;
 import io.opentracing.Tracer;
 import io.opentracing.util.GlobalTracer;
 
+import java.util.Map;
+
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
-import java.util.Map;
+
 
 /**
  * @author Pavol Loffay

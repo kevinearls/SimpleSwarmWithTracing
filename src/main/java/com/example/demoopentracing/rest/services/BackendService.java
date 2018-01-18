@@ -3,8 +3,9 @@ package com.example.demoopentracing.rest.services;
 import io.opentracing.ActiveSpan;
 import io.opentracing.Tracer;
 
-import javax.inject.Inject;
 import java.util.Random;
+
+import javax.inject.Inject;
 
 /**
  * @author Pavol Loffay
