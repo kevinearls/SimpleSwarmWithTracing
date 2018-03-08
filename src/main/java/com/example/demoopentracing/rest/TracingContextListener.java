@@ -1,6 +1,7 @@
 package com.example.demoopentracing.rest;
 
 import com.uber.jaeger.metrics.Metrics;
+import com.uber.jaeger.metrics.NoopMetricsFactory;
 import com.uber.jaeger.metrics.NullStatsReporter;
 import com.uber.jaeger.metrics.StatsFactoryImpl;
 import com.uber.jaeger.reporters.RemoteReporter;
@@ -52,10 +53,19 @@ public class TracingContextListener implements ServletContextListener {
     @Singleton
     public static io.opentracing.Tracer jaegerTracer() {
         Sender sender = sender = new UdpSender(JAEGER_AGENT_HOST, JAEGER_UDP_PORT, JAEGER_MAX_PACKET_SIZE);
-        Metrics metrics = new Metrics(new StatsFactoryImpl(new NullStatsReporter()));
-        Reporter remoteReporter = new RemoteReporter(sender, JAEGER_FLUSH_INTERVAL, JAEGER_MAX_QUEUE_SIZE, metrics);
+
+        //Reporter remoteReporter = new RemoteReporter(sender, JAEGER_FLUSH_INTERVAL, JAEGER_MAX_QUEUE_SIZE, metrics);
+        RemoteReporter remoteReporter = new RemoteReporter.Builder()
+                .withSender(sender)//.withMetrics()
+                .withFlushInterval(JAEGER_FLUSH_INTERVAL)
+                .withMaxQueueSize(JAEGER_MAX_QUEUE_SIZE)
+                .build();
+
         Sampler sampler = new ProbabilisticSampler(JAEGER_SAMPLING_RATE);
-        Tracer tracer = new com.uber.jaeger.Tracer.Builder(TEST_SERVICE_NAME, remoteReporter, sampler)
+
+        Tracer tracer = new com.uber.jaeger.Tracer.Builder(TEST_SERVICE_NAME)
+                .withReporter(remoteReporter)
+                .withSampler(sampler)
                 .build();
 
         return tracer;
